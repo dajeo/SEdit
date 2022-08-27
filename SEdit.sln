@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp1", "WpfApp1\WpfApp1.csproj", "{E2E91F7F-C9FC-4CD7-B3DF-812DB8264648}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEdit", "SEdit\SEdit.csproj", "{E2E91F7F-C9FC-4CD7-B3DF-812DB8264648}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

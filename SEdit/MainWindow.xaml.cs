@@ -6,7 +6,7 @@ using System.Windows.Media;
 using ICSharpCode.AvalonEdit.Highlighting;
 using Wpf.Ui.Appearance;
 
-namespace WpfApp1
+namespace SEdit
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
