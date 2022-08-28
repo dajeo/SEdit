@@ -5,13 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
         mc:Ignorable="d"
-        Title="SEdit" Height="450" Width="800">
+        Title="Untitled - SEdit" Height="450" Width="800">
     <DockPanel>
         <Menu x:Name="Menu" DockPanel.Dock="Top">
             <MenuItem Header="File">
                 <MenuItem Header="Open..."
                           InputGestureText="Ctrl+O"
                           Click="OpenFile" />
+                <MenuItem Header="Save"
+                          InputGestureText="Ctrl+S"
+                          Click="SaveFile" />
             </MenuItem>
             <MenuItem Header="View">
                 <MenuItem Header="Theme">
@@ -35,6 +38,12 @@
                 </MenuItem>
             </MenuItem>
         </Menu>
+        
+        <StatusBar DockPanel.Dock="Bottom" PreviewMouseDown="OnStatusBarClick">
+            <StatusBarItem>
+                <TextBlock x:Name="StatusBlock"></TextBlock>
+            </StatusBarItem>
+        </StatusBar>
         
         <avalonEdit:TextEditor x:Name="Editor"
                                ShowLineNumbers="True" />
