@@ -1,10 +1,10 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using ICSharpCode.AvalonEdit.Highlighting;
 using Wpf.Ui.Appearance;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 
 namespace SEdit
 {
@@ -19,17 +19,31 @@ namespace SEdit
             KeyDown += OnButtonKeyDown;
         }
 
+        private void IncreaseFontSize(object sender, RoutedEventArgs e)
+        {
+            Utilities.IncreaseFontSize(Editor, 3);
+        }
+        
+        private void DecreaseFontSize(object sender, RoutedEventArgs e)
+        {
+            Utilities.DecreaseFontSize(Editor, 3);
+        }
+        
         private void OnButtonKeyDown(object sender, KeyEventArgs e)
         {
             if (Keyboard.Modifiers != ModifierKeys.Control) return;
-            
-            if (e.Key == Key.OemPlus)
+
+            switch (e.Key)
             {
-                Editor.FontSize += 1;
-            }
-            else if (e.Key == Key.OemMinus)
-            {
-                Editor.FontSize -= 1;
+                case Key.OemPlus:
+                    Utilities.IncreaseFontSize(Editor, 1);
+                    break;
+                case Key.OemMinus:
+                    Utilities.DecreaseFontSize(Editor, 1);
+                    break;
+                case Key.O:
+                    Utilities.OpenFile(Editor);
+                    break;
             }
         }
 
@@ -37,19 +51,14 @@ namespace SEdit
         {
             var menuItem = (MenuItem) sender;
             
-            var syntax = HighlightingManager.Instance.GetDefinition(menuItem.Header.ToString());
-
-            if (syntax == null)
-            {
-                throw new Exception("Syntax not found.");
-            }
-            
-            Editor.SyntaxHighlighting = syntax;
+            Editor.SyntaxHighlighting = HighlightingManager.Instance.GetDefinition(menuItem.Header.ToString());;
         }
 
         private void ChangeTheme(object sender, RoutedEventArgs e)
         {
-            if (Theme.GetAppTheme() == ThemeType.Dark)
+            var menuItem = (MenuItem) sender;
+
+            if (menuItem.Header.ToString() == "Light")
             {
                 Editor.Background = Brushes.White;
                 Editor.Foreground = Brushes.Black;
@@ -63,6 +72,11 @@ namespace SEdit
                 Menu.Foreground = Brushes.White;
                 Theme.Apply(ThemeType.Dark, BackgroundType.None);
             }
+        }
+
+        private void OpenFile(object sender, RoutedEventArgs e)
+        {
+            Utilities.OpenFile(Editor);
         }
     }
 }

@@ -5,17 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="SEdit" Height="450" Width="800">
     <DockPanel>
         <Menu x:Name="Menu" DockPanel.Dock="Top">
-            <MenuItem Header="View">
-                <MenuItem Header="Theme" Click="ChangeTheme" />
+            <MenuItem Header="File">
+                <MenuItem Header="Open..."
+                          InputGestureText="Ctrl+O"
+                          Click="OpenFile" />
             </MenuItem>
-            <MenuItem Header="Syntax">
-                <MenuItem Header="C#" Click="SyntaxMenu" />
-                <MenuItem Header="Java" Click="SyntaxMenu" />
-                <MenuItem Header="JavaScript" Click="SyntaxMenu" />
-                <MenuItem Header="Python" Click="SyntaxMenu" />
+            <MenuItem Header="View">
+                <MenuItem Header="Theme">
+                    <MenuItem Header="Light" Click="ChangeTheme" />
+                    <MenuItem Header="Dark" Click="ChangeTheme" />
+                </MenuItem>
+                <MenuItem Header="Zoom">
+                    <MenuItem Header="Zoom In" 
+                              InputGestureText="Ctrl+Plus"
+                              Click="IncreaseFontSize" />
+                    <MenuItem Header="Zoom Out"
+                              InputGestureText="Ctrl+Minus"
+                              Click="DecreaseFontSize" />
+                </MenuItem>
+                <MenuItem Header="Syntax">
+                    <MenuItem Header="Plain text" Click="SyntaxMenu" />
+                    <MenuItem Header="C#" Click="SyntaxMenu" />
+                    <MenuItem Header="Java" Click="SyntaxMenu" />
+                    <MenuItem Header="JavaScript" Click="SyntaxMenu" />
+                    <MenuItem Header="Python" Click="SyntaxMenu" />
+                </MenuItem>
             </MenuItem>
         </Menu>
         
