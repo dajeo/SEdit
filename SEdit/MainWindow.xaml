@@ -15,6 +15,9 @@
                 <MenuItem Header="Save"
                           InputGestureText="Ctrl+S"
                           Click="SaveFile" />
+                <MenuItem Header="Save As..."
+                          InputGestureText="Ctrl+Shift+S (Not work)"
+                          Click="SaveAsFile"/>
             </MenuItem>
             <MenuItem Header="View">
                 <MenuItem Header="Theme">
@@ -36,10 +39,14 @@
                     <MenuItem Header="JavaScript" Click="SyntaxMenu" />
                     <MenuItem Header="Python" Click="SyntaxMenu" />
                 </MenuItem>
+                <MenuItem Header="Status Bar" 
+                          IsCheckable="True" 
+                          IsChecked="True"
+                          Click="StatusBarAction" />
             </MenuItem>
         </Menu>
         
-        <StatusBar DockPanel.Dock="Bottom" PreviewMouseDown="OnStatusBarClick">
+        <StatusBar x:Name="StatusBar" DockPanel.Dock="Bottom" PreviewMouseDown="OnStatusBarClick">
             <StatusBarItem>
                 <TextBlock x:Name="StatusBlock"></TextBlock>
             </StatusBarItem>

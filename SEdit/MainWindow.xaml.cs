@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using ICSharpCode.AvalonEdit.Highlighting;
+using SEdit.Utilities;
 using Wpf.Ui.Appearance;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 
@@ -23,12 +24,12 @@ public partial class MainWindow
 
     private void IncreaseFontSize(object sender, RoutedEventArgs e)
     {
-        Utilities.IncreaseFontSize(Editor, 3);
+        EditorUtils.IncreaseFontSize(Editor, 3);
     }
         
     private void DecreaseFontSize(object sender, RoutedEventArgs e)
     {
-        Utilities.DecreaseFontSize(Editor, 3);
+        EditorUtils.DecreaseFontSize(Editor, 3);
     }
 
     private void OnButtonKeyDown(object sender, KeyEventArgs e)
@@ -38,16 +39,16 @@ public partial class MainWindow
         switch (e.Key)
         {
             case Key.OemPlus:
-                Utilities.IncreaseFontSize(Editor, 1);
+                EditorUtils.IncreaseFontSize(Editor, 1);
                 break;
             case Key.OemMinus:
-                Utilities.DecreaseFontSize(Editor, 1);
+                EditorUtils.DecreaseFontSize(Editor, 1);
                 break;
             case Key.O:
-                Utilities.OpenFile(this, Editor, ref _currentFileName);
+                FileUtils.OpenFile(this, Editor, ref _currentFileName);
                 break;
             case Key.S:
-                Utilities.SaveFile(this, StatusBlock, ref _currentFileName, Editor.Text);
+                FileUtils.SaveFile(this, StatusBlock, ref _currentFileName, Editor.Text);
                 break;
         }
     }
@@ -81,12 +82,12 @@ public partial class MainWindow
 
     private void OpenFile(object sender, RoutedEventArgs e)
     {
-        Utilities.OpenFile(this, Editor, ref _currentFileName);
+        FileUtils.OpenFile(this, Editor, ref _currentFileName);
     }
 
     private void SaveFile(object sender, RoutedEventArgs e)
     {
-        Utilities.SaveFile(this, StatusBlock, ref _currentFileName, Editor.Text);
+        FileUtils.SaveFile(this, StatusBlock, ref _currentFileName, Editor.Text);
     }
 
     private void OnStatusBarClick(object sender, MouseButtonEventArgs e)
@@ -95,5 +96,17 @@ public partial class MainWindow
         {
             StatusBlock.Text = "";
         }
+    }
+
+    private void SaveAsFile(object sender, RoutedEventArgs e)
+    {
+        FileUtils.SaveAsFile(this, StatusBlock, Editor.Text);
+    }
+
+    private void StatusBarAction(object sender, RoutedEventArgs e)
+    {
+        var menuItem = (MenuItem) sender;
+
+        StatusBar.Visibility = menuItem.IsChecked ? Visibility.Visible : Visibility.Collapsed;
     }
 }
