@@ -109,4 +109,11 @@ public partial class MainWindow
 
         StatusBar.Visibility = menuItem.IsChecked ? Visibility.Visible : Visibility.Collapsed;
     }
+
+    private void WordWrapAction(object sender, RoutedEventArgs e)
+    {
+        var menuItem = (MenuItem) sender;
+
+        Editor.WordWrap = menuItem.IsChecked;
+    }
 }

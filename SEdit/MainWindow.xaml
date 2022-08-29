@@ -39,6 +39,10 @@
                     <MenuItem Header="JavaScript" Click="SyntaxMenu" />
                     <MenuItem Header="Python" Click="SyntaxMenu" />
                 </MenuItem>
+                <MenuItem Header="Word Wrap"
+                          IsCheckable="True"
+                          IsChecked="False"
+                          Click="WordWrapAction" />
                 <MenuItem Header="Status Bar" 
                           IsCheckable="True" 
                           IsChecked="True"

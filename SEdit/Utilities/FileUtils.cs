@@ -7,15 +7,13 @@ namespace SEdit.Utilities;
 
 public static class FileUtils
 {
-    private static readonly string[] Filters =
+    private static readonly string Filters = string.Join("|", new string[]
     {
         FormatFilter("Plain text", "txt"),
         FormatFilter("Python", "py"),
         FormatFilter("Java", "java"),
         FormatFilter("C#", "cs")
-    };
-
-    private static readonly string FormattedFilters = string.Join("|", Filters);
+    });
     
     public static void OpenFile(MainWindow mainWindow, TextEditor editor, ref string currentFileName)
     {
@@ -28,28 +26,28 @@ public static class FileUtils
         editor.Text = File.ReadAllText(currentFileName);
     }
 
-    public static void SaveFile(MainWindow mainWindow, TextBlock statusBlock, ref string fileName, string content)
+    public static void SaveFile(MainWindow window, TextBlock statusBlock, ref string fileName, string content)
     {
         if (string.IsNullOrEmpty(fileName))
         {
-            var tempFileName = SaveAsFile(mainWindow, statusBlock, content);
+            var tempFileName = SaveAsFile(window, statusBlock, content);
             if (tempFileName == null) return;
             fileName = tempFileName;
             return;
         }
         
         statusBlock.Text = "File saved";
-        mainWindow.Title = fileName + " - SEdit";
+        window.Title = fileName + " - SEdit";
         File.WriteAllText(fileName, content);
     }
 
-    public static string? SaveAsFile(MainWindow mainWindow, TextBlock statusBlock, string content)
+    public static string? SaveAsFile(MainWindow window, TextBlock statusBlock, string content)
     {
         string fileName;
         
         var saveFileDialog = new SaveFileDialog
         {
-            Filter = FormattedFilters
+            Filter = Filters
         };
 
         if (saveFileDialog.ShowDialog() == true)
@@ -59,7 +57,7 @@ public static class FileUtils
         else return null;
 
         statusBlock.Text = "File saved";
-        mainWindow.Title = fileName + " - SEdit";
+        window.Title = fileName + " - SEdit";
         File.WriteAllText(fileName, content);
         
         return fileName;
