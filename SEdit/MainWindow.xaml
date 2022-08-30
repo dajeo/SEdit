@@ -17,7 +17,7 @@
                           Click="SaveFile" />
                 <MenuItem Header="Save As..."
                           InputGestureText="Ctrl+Shift+S (Not work)"
-                          Click="SaveAsFile"/>
+                          Click="SaveAsFile" />
             </MenuItem>
             <MenuItem Header="View">
                 <MenuItem Header="Theme">

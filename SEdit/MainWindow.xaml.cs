@@ -20,6 +20,8 @@ public partial class MainWindow
     {
         InitializeComponent();
         KeyDown += OnButtonKeyDown;
+
+        Editor.WordWrap = Properties.Settings.Default.WordWrap;
     }
 
     private void IncreaseFontSize(object sender, RoutedEventArgs e)
@@ -112,8 +114,9 @@ public partial class MainWindow
 
     private void WordWrapAction(object sender, RoutedEventArgs e)
     {
-        var menuItem = (MenuItem) sender;
+        var isChecked = ((MenuItem) sender).IsChecked;
 
-        Editor.WordWrap = menuItem.IsChecked;
+        Properties.Settings.Default.WordWrap = isChecked;
+        Editor.WordWrap = isChecked;
     }
 }
