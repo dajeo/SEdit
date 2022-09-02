@@ -21,7 +21,14 @@ public partial class MainWindow
         InitializeComponent();
         KeyDown += OnButtonKeyDown;
 
-        Editor.WordWrap = Properties.Settings.Default.WordWrap;
+        var wordWrapProp = Properties.Settings.Default.WordWrap;
+
+        Editor.WordWrap = wordWrapProp;
+        var wordWrap = Menu.FindName("WordWrapItem");
+        if (wordWrap is MenuItem item)
+        {
+            item.IsChecked = wordWrapProp;   
+        }
     }
 
     private void IncreaseFontSize(object sender, RoutedEventArgs e)

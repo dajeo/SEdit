@@ -12,7 +12,8 @@ public static class FileUtils
         FormatFilter("Plain text", "txt"),
         FormatFilter("Python", "py"),
         FormatFilter("Java", "java"),
-        FormatFilter("C#", "cs")
+        FormatFilter("C#", "cs"),
+        FormatFilter("JavaScript", "js")
     });
     
     public static void OpenFile(MainWindow mainWindow, TextEditor editor, ref string currentFileName)
@@ -24,6 +25,25 @@ public static class FileUtils
         currentFileName = openFileDialog.FileName;
         mainWindow.Title = currentFileName + " - SEdit";
         editor.Text = File.ReadAllText(currentFileName);
+
+        switch (Path.GetExtension(openFileDialog.FileName))
+        {
+            case ".py":
+                SyntaxUtils.ApplySyntax(editor, "Python");
+                break;
+            case ".java":
+                SyntaxUtils.ApplySyntax(editor, "Java");
+                break; 
+            case ".js":
+                SyntaxUtils.ApplySyntax(editor, "JavaScript");
+                break;
+            case ".cs":
+                SyntaxUtils.ApplySyntax(editor, "C#");
+                break;
+            default:
+                SyntaxUtils.ApplySyntax(editor, "Plain text");
+                break;
+        }
     }
 
     public static void SaveFile(MainWindow window, TextBlock statusBlock, ref string fileName, string content)

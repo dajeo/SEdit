@@ -39,7 +39,8 @@
                     <MenuItem Header="JavaScript" Click="SyntaxMenu" />
                     <MenuItem Header="Python" Click="SyntaxMenu" />
                 </MenuItem>
-                <MenuItem Header="Word Wrap"
+                <MenuItem Name="WordWrapItem" 
+                          Header="Word Wrap"
                           IsCheckable="True"
                           IsChecked="False"
                           Click="WordWrapAction" />
