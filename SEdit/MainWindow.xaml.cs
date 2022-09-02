@@ -1,10 +1,10 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using ICSharpCode.AvalonEdit.Highlighting;
+using Microsoft.Win32;
 using SEdit.Utilities;
-using Wpf.Ui.Appearance;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 
 namespace SEdit;
@@ -21,6 +21,19 @@ public partial class MainWindow
         InitializeComponent();
         KeyDown += OnButtonKeyDown;
 
+        var themeProp = Properties.Settings.Default.Theme;
+
+        if (string.IsNullOrEmpty(themeProp))
+        {
+            using var key = Registry.CurrentUser
+                .OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize")!;
+            var currentTheme = (int) key.GetValue("AppsUseLightTheme")! == 1 ? "Light" : "Dark";
+            Properties.Settings.Default.Theme = currentTheme;
+            themeProp = currentTheme;
+        }
+        
+        ThemeUtils.ApplyTheme(Editor, Menu, (Enums.Theme) Enum.Parse(typeof(Enums.Theme), themeProp));
+        
         var wordWrapProp = Properties.Settings.Default.WordWrap;
 
         Editor.WordWrap = wordWrapProp;
@@ -72,21 +85,10 @@ public partial class MainWindow
     private void ChangeTheme(object sender, RoutedEventArgs e)
     {
         var menuItem = (MenuItem) sender;
+        var selectedTheme = menuItem.Header.ToString()!;
 
-        if (menuItem.Header.ToString() == "Light")
-        {
-            Editor.Background = Brushes.White;
-            Editor.Foreground = Brushes.Black;
-            Menu.Foreground = Brushes.Black;
-            Theme.Apply(ThemeType.Light, BackgroundType.None);
-        }
-        else
-        {
-            Editor.Background = (SolidColorBrush) new BrushConverter().ConvertFrom("#2d2d2d")!;
-            Editor.Foreground = Brushes.White;
-            Menu.Foreground = Brushes.White;
-            Theme.Apply(ThemeType.Dark, BackgroundType.None);
-        }
+        ThemeUtils.ApplyTheme(Editor, Menu, (Enums.Theme) Enum.Parse(typeof(Enums.Theme), selectedTheme));
+        Properties.Settings.Default.Theme = selectedTheme; 
     }
 
     private void OpenFile(object sender, RoutedEventArgs e)
