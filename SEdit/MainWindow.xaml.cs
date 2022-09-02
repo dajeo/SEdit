@@ -21,6 +21,7 @@ public partial class MainWindow
         InitializeComponent();
         KeyDown += OnButtonKeyDown;
 
+        // Theme initializing        
         var themeProp = Properties.Settings.Default.Theme;
 
         if (string.IsNullOrEmpty(themeProp))
@@ -34,6 +35,7 @@ public partial class MainWindow
         
         ThemeUtils.ApplyTheme(Editor, Menu, (Enums.Theme) Enum.Parse(typeof(Enums.Theme), themeProp));
         
+        // Word wrap initializing
         var wordWrapProp = Properties.Settings.Default.WordWrap;
 
         Editor.WordWrap = wordWrapProp;
