@@ -58,23 +58,40 @@ public partial class MainWindow
 
     private void OnButtonKeyDown(object sender, KeyEventArgs e)
     {
-        if (Keyboard.Modifiers != ModifierKeys.Control) return;
-
-        switch (e.Key)
+        if (Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.LeftShift))
         {
-            case Key.OemPlus:
-                EditorUtils.IncreaseFontSize(Editor, 1);
-                break;
-            case Key.OemMinus:
-                EditorUtils.DecreaseFontSize(Editor, 1);
-                break;
-            case Key.O:
-                FileUtils.OpenFile(this, Editor, ref _currentFileName);
-                break;
-            case Key.S:
-                FileUtils.SaveFile(this, StatusBlock, ref _currentFileName, Editor.Text);
-                break;
+            Editor.IsEnabled = false;
+            
+            switch (e.Key)
+            {
+                case Key.S:
+                    FileUtils.SaveAsFile(this, StatusBlock, Editor.Text);
+                    break;
+            }
         }
+        else if (Keyboard.Modifiers == ModifierKeys.Control)
+        {
+            Editor.IsEnabled = false;
+            
+            switch (e.Key)
+            {
+                case Key.OemPlus:
+                    EditorUtils.IncreaseFontSize(Editor, 1);
+                    break;
+                case Key.OemMinus:
+                    EditorUtils.DecreaseFontSize(Editor, 1);
+                    break;
+                case Key.O:
+                    FileUtils.OpenFile(this, Editor, ref _currentFileName);
+                    break;
+                case Key.S:
+                    FileUtils.SaveFile(this, StatusBlock, ref _currentFileName, Editor.Text);
+                    break;
+                    
+            }
+        }
+        
+        Editor.IsEnabled = true;
     }
 
     private void SyntaxMenu(object sender, RoutedEventArgs e)
