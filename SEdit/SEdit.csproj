@@ -7,6 +7,12 @@
         <UseWPF>true</UseWPF>
         <RootNamespace>SEdit</RootNamespace>
         <StartupObject>SEdit.App</StartupObject>
+        <Authors>Headcrab</Authors>
+        <Description>Simple Editor written in C#/WPF</Description>
+        <PackageLicenseUrl>https://github.com/HeadcrabJ/SEdit/LICENSE</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/HeadcrabJ/SEdit</RepositoryUrl>
+        <Configurations>Release;Debug</Configurations>
+        <Platforms>x64</Platforms>
     </PropertyGroup>
 
     <ItemGroup>
