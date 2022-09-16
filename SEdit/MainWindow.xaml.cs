@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
 using ICSharpCode.AvalonEdit.Highlighting;
 using Microsoft.Win32;
 using SEdit.Utilities;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
+using Media = System.Windows.Media;
 
 namespace SEdit;
 
@@ -40,9 +42,19 @@ public partial class MainWindow
 
         Editor.WordWrap = wordWrapProp;
         var wordWrap = Menu.FindName("WordWrapItem");
-        if (wordWrap is MenuItem item)
+        if (wordWrap is MenuItem wordWrapItem)
         {
-            item.IsChecked = wordWrapProp;   
+            wordWrapItem.IsChecked = wordWrapProp;   
+        }
+
+        // Status bar initializing
+        var statusBarProp = Properties.Settings.Default.StatusBar;
+
+        StatusBar.Visibility = statusBarProp ? Visibility.Visible : Visibility.Collapsed;
+        var statusBar = Menu.FindName("StatusBarItem");
+        if (statusBar is MenuItem statusBarItem)
+        {
+            statusBarItem.IsChecked = statusBarProp;
         }
     }
 
@@ -135,9 +147,10 @@ public partial class MainWindow
 
     private void StatusBarAction(object sender, RoutedEventArgs e)
     {
-        var menuItem = (MenuItem) sender;
+        var isChecked = ((MenuItem)sender).IsChecked;
 
-        StatusBar.Visibility = menuItem.IsChecked ? Visibility.Visible : Visibility.Collapsed;
+        Properties.Settings.Default.StatusBar = isChecked;
+        StatusBar.Visibility = isChecked ? Visibility.Visible : Visibility.Collapsed;
     }
 
     private void WordWrapAction(object sender, RoutedEventArgs e)
@@ -146,5 +159,20 @@ public partial class MainWindow
 
         Properties.Settings.Default.WordWrap = isChecked;
         Editor.WordWrap = isChecked;
+    }
+
+    private void FontDialog(object sender, RoutedEventArgs e)
+    {
+        var fontDialog = new FontDialog
+        {
+            Font = new System.Drawing.Font(Editor.FontFamily.Source, (float)Editor.FontSize),
+            ShowEffects = false
+        };
+
+        if (fontDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+        {
+            Editor.FontFamily = new Media.FontFamily(fontDialog.Font.FontFamily.Name);
+            Editor.FontSize = fontDialog.Font.Size;
+        }
     }
 }

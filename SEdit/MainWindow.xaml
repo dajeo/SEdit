@@ -20,6 +20,7 @@
                           Click="SaveAsFile" />
             </MenuItem>
             <MenuItem Header="View">
+                <MenuItem Header="Font..." Click="FontDialog" />
                 <MenuItem Header="Theme">
                     <MenuItem Header="Light" Click="ChangeTheme" />
                     <MenuItem Header="Dark" Click="ChangeTheme" />
@@ -44,7 +45,8 @@
                           IsCheckable="True"
                           IsChecked="False"
                           Click="WordWrapAction" />
-                <MenuItem Header="Status Bar" 
+                <MenuItem Name="StatusBarItem"
+                          Header="Status Bar" 
                           IsCheckable="True" 
                           IsChecked="True"
                           Click="StatusBarAction" />
