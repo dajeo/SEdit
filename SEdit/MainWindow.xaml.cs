@@ -73,7 +73,7 @@ public partial class MainWindow
         if (Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.LeftShift))
         {
             Editor.IsEnabled = false;
-            
+
             switch (e.Key)
             {
                 case Key.S:
@@ -169,10 +169,9 @@ public partial class MainWindow
             ShowEffects = false
         };
 
-        if (fontDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-        {
-            Editor.FontFamily = new Media.FontFamily(fontDialog.Font.FontFamily.Name);
-            Editor.FontSize = fontDialog.Font.Size;
-        }
+        if (fontDialog.ShowDialog() != System.Windows.Forms.DialogResult.OK) return;
+
+        Editor.FontFamily = new Media.FontFamily(fontDialog.Font.FontFamily.Name);
+        Editor.FontSize = fontDialog.Font.Size;
     }
 }

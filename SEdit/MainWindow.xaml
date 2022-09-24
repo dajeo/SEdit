@@ -51,6 +51,9 @@
                           IsChecked="True"
                           Click="StatusBarAction" />
             </MenuItem>
+            <MenuItem Header="Help">
+                <MenuItem Header="About SEdit" />
+            </MenuItem>
         </Menu>
         
         <StatusBar x:Name="StatusBar" DockPanel.Dock="Bottom" PreviewMouseDown="OnStatusBarClick">
